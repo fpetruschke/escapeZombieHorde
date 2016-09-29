@@ -1,0 +1,39 @@
+{% extends '/base/layout.html.twig' %}
+{% block content %}
+
+
+    <style>
+        body {
+            background-image: url("{{ app.serverRoot }}img/background.jpg");
+        }
+        .fillspace {
+            margin-top: 50px;
+        }
+    </style>
+
+    <div class="container">
+
+        <div class="row fillspace"></div>
+        <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-2">
+                <p>coming soon...</p>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+
+        <div class="row fillspace"></div>
+        <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-2">
+                <a href="{{ app.urlRoot }}home" class="btn">Back</a>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+
+    </div>
+
+    <script>
+
+    </script>
+{% endblock content %}

@@ -1,0 +1,92 @@
+{% extends '/base/layout.html.twig' %}
+{% block content %}
+
+    {# Adding style adjustments for the starting page #}
+    <style>
+        body {
+            background-image: url("{{ app.serverRoot }}img/background.jpg");
+            /*Please mention the mobiles when using overflow: hidden;*/
+            /*transition: all .5s ease-in-out;*/
+        }
+        body:hover {
+            /*transform: scale(1.1);*/
+        }
+        #fogCanvas
+        {
+            height:200px;
+            width:100%;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            left: 0;
+
+        }
+    </style>
+
+    {# content container with info and buttons #}
+    <div class="container">
+        <h1>Escape Zombie Horde</h1>
+        <p>An android app that interacts with a webservice<br> tracking your footsteps and spawning zombies near you.</p>
+        <div id="notification"></div>
+        <a class="btn" {#href="{{ app.androidApp }}"#} onclick="checkIfAndroidAppExists();">Download Android-Client</a>
+        <a href="{{ app.urlRoot }}documentation" class="btn" >Documentation</a>
+    </div>
+
+    {# canvas for displaying fog #}
+    <canvas id="fogCanvas" height="200" width="800"></canvas>
+
+    <script src="{{ app.serverRoot }}js/fogGeneratorForCanvas.js"></script>
+    <script>
+
+        /**
+         * checkIfAndroidAppExists
+         *
+         * Sends an ajax request to the server to see if the file
+         * exists.
+         *
+         * @returns {boolean}
+         */
+        function checkIfAndroidAppExists() {
+            $.ajax({
+                type: "POST",
+                url: "{{ app.urlRoot }}download/app/android",
+                cache: false,
+                dataType : 'json',
+                success: function (data) {
+                    window.scrollTo(0, 0);
+                    var type = '';
+                    var content = '';
+                    if ('success' == data.response.code) {
+                        type = 'success';
+                        content = '<strong>Success! </strong>' + data.response.message;
+                    } else if ('note' == data.response.code) {
+                        type = 'warning';
+                        content = '<strong>Sorry! </strong>' + data.response.message;
+                    } else if ('error' == data.response.code) {
+                        type = 'danger';
+                        content = '<strong>Error! </strong>' + data.response.message;
+                    } else {
+                        type = 'danger';
+                        content = '<strong>Sorry! </strong> The application is currently not available.';
+                    }
+                    $('#notification').replaceWith(
+                            '<div id="notification" class="alert alert-' + type + '" role="alert">' +
+                                '<img class="pull-left" src="{{ app.serverRoot }}img/icon.png" width="25">' +
+                                content +
+                            '</div>'
+                    );
+                }
+            });
+            return true;
+        }
+
+        /**
+         * NOTE:
+         * Following code was taken from http://codepen.io/dburrell/pen/RNpgRg
+         * and slightly adjusted to this project.
+         * It renders fog into the given canvas
+         */
+        fogGeneratorForCanvas("fogCanvas");
+
+    </script>
+{% endblock content %}

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% block head %}
+            {% include '/base/head.html.twig'%}
+        {% endblock head %}
+    </head>
+    <body>
+        {% block javascripts %}
+            {% include '/base/javascripts.html.twig'%}
+        {% endblock javascripts %}
+
+        {% block content %}
+        {% endblock content %}
+    </body>
+</html>
