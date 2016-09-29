@@ -1,4 +1,4 @@
-# emptyProject - Silex
+# escapeZombieHorde
 
 The web application is based on PHP framework Silex 1.3 ( [http://silex.sensiolabs.org/documentation](http://silex.sensiolabs.org/documentation) )
 
