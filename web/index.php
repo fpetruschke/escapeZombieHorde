@@ -21,16 +21,16 @@ $app = new Application();
 /**
  * Defining project roots and sources
  */
-$app['serverRoot']  = "/escapeZombieHorde/web/";
-$app['urlRoot']     = "/escapeZombieHorde/";
-$app['androidApp']  = $app['serverRoot'] . "android/escapeZombieHorde.apk";
+$app['serverRoot']  = "";
+$app['urlRoot']     = "";
+$app['androidApp']  = "";
 
 /*
  * Registering service provider for twig template engine
  */
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__ . '/../app/MVC/View', // The path to the templates, which is in our case points to /var/www/templates
-    'twig.options' => array('debug' => true)
+    'twig.options' => array('debug' => false)
 ));
 $app['twig']->addExtension(new Twig_Extension_Debug());
 $app['twig']->addGlobal('current_page_name', $app['routes']);
@@ -39,11 +39,12 @@ $app['twig']->addGlobal('current_page_name', $app['routes']);
 /*
  * Registering routes from yaml config
  */
+$app['routesConfigFile'] = '';
 $app['routes'] = $app->extend('routes', function(RouteCollection $routes, Application $app) {
-    $configDirectories = array(__DIR__ . '/../app/config');
+    $configDirectories = array(__DIR__ . '/../app/config/routes');
     $locator = new FileLocator($configDirectories);
     $loader = new YamlFileLoader($locator);
-    $collection = $loader->load('routes.yml');
+    $collection = $loader->load($app['routesConfigFile']);
     $routes->addCollection($collection);
     return $routes;
 });
@@ -54,7 +55,14 @@ $app['routes'] = $app->extend('routes', function(RouteCollection $routes, Applic
 $app['log'] = new \escapeZombieHorde\Controller\Tools\logController(__DIR__ . '/../app/logs');
 
 // for debugging purposes set to "true"
-$app['debug'] = true;
+$app['debug'] = false;
+
+/**
+ * setting environment vars
+ */
+$env = getenv('APP_ENV') ?: 'prod';
+$app->register(new Igorw\Silex\ConfigServiceProvider(__DIR__."/../app/config/environment/".$env.".yml"));
+
 
 // run Silex application with the above configuration
 $app->run();

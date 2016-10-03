@@ -1,0 +1,21 @@
+# dev routes for local development
+blank:
+  path: /escapeZombieHorde/
+  defaults: { _controller: escapeZombieHorde\Controller\AppController::showIndex }
+
+home:
+  path: /escapeZombieHorde/home
+  defaults: { _controller: escapeZombieHorde\Controller\AppController::showIndex }
+
+downloadAndroidApp:
+  path: /escapeZombieHorde/download/app/android
+  defaults: { _controller: escapeZombieHorde\Controller\AppController::checkIfAndroidAppIsExistent }
+
+showDocumentation:
+  path: /escapeZombieHorde/documentation
+  defaults: { _controller: escapeZombieHorde\Controller\AppController::showDocumentation }
+
+
+createNewPlayer:
+  path: /escapeZombieHorde/api/playerNew
+  defaults: { _controller: escapeZombieHorde\Controller\AppController::createNewPlayer }

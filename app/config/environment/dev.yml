@@ -1,0 +1,12 @@
+# dev environment
+serverRoot : /escapeZombieHorde/web/
+urlRoot : /escapeZombieHorde/
+
+debug: true
+
+twig.options:
+  debug: true
+
+routesConfigFile: routes.dev.yml
+
+androidApp: /escapeZombieHorde/web/android/escapeZombieHorde.apk

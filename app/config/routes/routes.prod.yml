@@ -1,21 +1,21 @@
-# config/routes.yml
+# productive routes
 blank:
-  path: /escapeZombieHorde/
+  path: /
   defaults: { _controller: escapeZombieHorde\Controller\AppController::showIndex }
 
 home:
-  path: /escapeZombieHorde/home
+  path: /home
   defaults: { _controller: escapeZombieHorde\Controller\AppController::showIndex }
 
 downloadAndroidApp:
-  path: /escapeZombieHorde/download/app/android
+  path: /download/app/android
   defaults: { _controller: escapeZombieHorde\Controller\AppController::checkIfAndroidAppIsExistent }
 
 showDocumentation:
-  path: /escapeZombieHorde/documentation
+  path: /documentation
   defaults: { _controller: escapeZombieHorde\Controller\AppController::showDocumentation }
 
 
 createNewPlayer:
-  path: /escapeZombieHorde/api/playerNew
+  path: /api/playerNew
   defaults: { _controller: escapeZombieHorde\Controller\AppController::createNewPlayer }
