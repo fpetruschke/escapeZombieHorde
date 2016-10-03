@@ -14,3 +14,8 @@ downloadAndroidApp:
 showDocumentation:
   path: /escapeZombieHorde/documentation
   defaults: { _controller: escapeZombieHorde\Controller\AppController::showDocumentation }
+
+
+createNewPlayer:
+  path: /escapeZombieHorde/api/playerNew
+  defaults: { _controller: escapeZombieHorde\Controller\AppController::createNewPlayer }

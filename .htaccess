@@ -1,6 +1,6 @@
 <IfModule mod_rewrite.c>
     Options -MultiViews
-    Options +FollowSymLinks
+    Options +SymLinksIfOwnerMatch
     RewriteEngine On
     RewriteCond %{DOCUMENT_ROOT}/web/$1 -f
     RewriteRule ^((.+)/?)*$ /web/$1 [L]

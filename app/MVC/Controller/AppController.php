@@ -1,7 +1,10 @@
 <?php
 
 namespace escapeZombieHorde\Controller;
+use escapeZombieHorde\Model\Player;
 use Silex\Application;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * AppController
@@ -64,6 +67,27 @@ class AppController
             'documentation.html.twig',
             array()
         );
+
+    }
+
+    public function createNewPlayer(Application $app, Request $request) {
+
+        if(!empty($request->query->get("lat")) && null != $request->query->get("lat")) {
+            $latitude = $request->query->get("lat");
+        } else {
+            return new Response("Latitude is missing.", 500);
+        }
+
+        if(!empty($request->query->get("long")) && null != $request->query->get("long")) {
+            $longitude = $request->query->get("long");
+        } else {
+            return new Response("Longitude is missing.", 500);
+        }
+
+        $player = new Player($latitude, $longitude);
+        var_dump($player->getId());
+
+        return new Response("Good.", 200);
 
     }
 

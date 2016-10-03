@@ -3,9 +3,9 @@
 namespace escapeZombieHorde\Model;
 
 /**
- * User
+ * Player
  *
- * Represents the user
+ * Represents the player
  *
  */
 class Player
@@ -50,6 +50,14 @@ class Player
      * @var     float   Current Latitude the player is at
      */
     protected $currentLat;
+
+
+    public function __construct($lat, $long) {
+        // id consists of 15 characters, first is always "_"
+        $this->id = str_pad(str_replace(".","","_" . $lat . rand(0, 999) . $long), 15, 9);
+        $this->startLat = $lat;
+        $this->startLong = $long;
+    }
 
     /**
      * @return int
