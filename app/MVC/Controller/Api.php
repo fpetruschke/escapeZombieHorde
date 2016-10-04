@@ -61,4 +61,22 @@ class Api {
         }
     }
 
+    public function startGame(Application $app) {
+        session_start();
+
+        if ($_SESSION['player'] == null) {
+            return new Response("No active player in SESSION.", 200);
+        } else {
+
+            return $app['twig']->render(
+                'game.html.twig',
+                array(
+                    'lat' => $_SESSION['player']->getStartLat(),
+                    'long' => $_SESSION['player']->getStartLong()
+                )
+            );
+
+        }
+    }
+
 }
