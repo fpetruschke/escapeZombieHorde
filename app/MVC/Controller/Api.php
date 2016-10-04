@@ -68,6 +68,8 @@ class Api {
             return new Response("No active player in SESSION.", 200);
         } else {
 
+            var_dump($_SESSION['player']->getStartLat());
+
             return $app['twig']->render(
                 'game.html.twig',
                 array(
