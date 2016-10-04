@@ -61,33 +61,13 @@ class AppController
      * @param Application $app
      * @return mixed
      */
-    public function showDocumentation(Application $app) {
+    public function showDocumentation(Application $app)
+    {
 
         return $app['twig']->render(
             'documentation.html.twig',
             array()
         );
-
-    }
-
-    public function createNewPlayer(Application $app, Request $request) {
-
-        if(!empty($request->query->get("lat")) && null != $request->query->get("lat")) {
-            $latitude = $request->query->get("lat");
-        } else {
-            return new Response("Latitude is missing.", 500);
-        }
-
-        if(!empty($request->query->get("long")) && null != $request->query->get("long")) {
-            $longitude = $request->query->get("long");
-        } else {
-            return new Response("Longitude is missing.", 500);
-        }
-
-        $player = new Player($latitude, $longitude);
-        var_dump($player->getId());
-
-        return new Response("Good.", 200);
 
     }
 

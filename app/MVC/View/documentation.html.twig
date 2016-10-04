@@ -16,8 +16,46 @@
         <div class="row fillspace"></div>
         <div class="row">
             <div class="col-lg-2"></div>
-            <div class="col-lg-2">
-                <p>coming soon...</p>
+            <div class="col-lg-8">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <div class="panel panel-default">
+                            <div class="panel-header">
+                                <h2>Get session player info</h2>
+                            </div>
+                            <div class="panel-body">
+                                <p><strong>Request reads out the current $_SESSION['player'] as json encoded String</strong></p>
+                                <p><pre>URL/api/get/player</pre></p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="panel panel-default">
+                            <div class="panel-header">
+                                <h2>Create new player</h2>
+                            </div>
+                            <div class="panel-body">
+                                <p><strong>Request creates a new player instance and stores it into the $_SESSION['player']</strong></p>
+                                <ol>
+                                    <li>LATITUDE: current latitude</li>
+                                    <li>LONGITUDE: current longitude</li>
+                                </ol>
+                                <p><pre>URL/api/create/player?lat=LATITUDE&long=LONGITUDE</pre></p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="panel panel-default">
+                            <div class="panel-header">
+                                <h2>Delete session player</h2>
+                            </div>
+                            <div class="panel-body">
+                                <p><strong>Request deletes the current $_SESSION['player'] and destroys the session</strong></p>
+                                <p><pre>URL/api/delete/player</pre></p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
             <div class="col-lg-2"></div>
         </div>
@@ -25,8 +63,8 @@
         <div class="row fillspace"></div>
         <div class="row">
             <div class="col-lg-2"></div>
-            <div class="col-lg-2">
-                <a href="{{ app.urlRoot }}home" class="btn">Back</a>
+            <div class="col-lg-8">
+                <a href="{{ app.urlRoot }}home" class="btn btn-md btn-default">Back</a>
             </div>
             <div class="col-lg-2"></div>
         </div>
