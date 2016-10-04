@@ -5,9 +5,35 @@
     <style>
         body {
             background-image: url("{{ app.serverRoot }}img/background.jpg");
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
         }
         .fillspace {
             margin-top: 50px;
+        }
+        .panel-heading:hover {
+            cursor:pointer;
+        }
+        #backBtn {
+            display: inline-block;
+            background-color: rgba(252,252,252,0.6);
+            font-size: 1em;
+            padding: 10px 40px;
+            border: 2px solid white;
+            color: #333;
+            text-decoration: none;
+            margin: 0px 10px 10px 0;
+            transition: all .6s;
+            text-align: center;
+            border-radius: 4px;
+            font-weight: 800;
+        }
+        #backBtn:hover {
+            background: #C0392B;
+            color: #fff;
+            z-index: 999;
         }
     </style>
 
@@ -17,23 +43,27 @@
         <div class="row">
             <div class="col-lg-2"></div>
             <div class="col-lg-8">
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <div class="panel panel-default">
-                            <div class="panel-header">
-                                <h2>Get session player info</h2>
-                            </div>
+                <div class="well">
+                    <h1>Documentation</h1>
+                    <p><strong><i>URL</i></strong> = http://zombie.menkar.uberspace.de</p>
+                </div>
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                            <h4 class="panel-title"><strong>Get player info</strong></h4>
+                        </div>
+                        <div id="collapse1" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <p><strong>Request reads out the current $_SESSION['player'] as json encoded String</strong></p>
                                 <p><pre>URL/api/get/player</pre></p>
                             </div>
                         </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="panel panel-default">
-                            <div class="panel-header">
-                                <h2>Create new player</h2>
-                            </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                            <h4 class="panel-title"><strong>Create new player</strong></h4>
+                        </div>
+                        <div id="collapse2" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <p><strong>Request creates a new player instance and stores it into the $_SESSION['player']</strong></p>
                                 <ol>
@@ -43,19 +73,31 @@
                                 <p><pre>URL/api/create/player?lat=LATITUDE&long=LONGITUDE</pre></p>
                             </div>
                         </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="panel panel-default">
-                            <div class="panel-header">
-                                <h2>Delete session player</h2>
-                            </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+                            <h4 class="panel-title"><strong>Delete player</strong></h4>
+                        </div>
+                        <div id="collapse3" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <p><strong>Request deletes the current $_SESSION['player'] and destroys the session</strong></p>
                                 <p><pre>URL/api/delete/player</pre></p>
                             </div>
                         </div>
-                    </li>
-                </ul>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+                            <h4 class="panel-title"><strong>Start game</strong></h4>
+                        </div>
+                        <div id="collapse4" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <p><strong>Request starts a new game.</strong>
+                                <p class="alert-danger"><strong>Requires an active $_SESSION['player']</strong><i> (see "create new player")</i></p>
+                                <p><pre>URL/api/game/start</pre></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="col-lg-2"></div>
         </div>
@@ -64,7 +106,7 @@
         <div class="row">
             <div class="col-lg-2"></div>
             <div class="col-lg-8">
-                <a href="{{ app.urlRoot }}home" class="btn btn-md btn-default">Back</a>
+                <a href="{{ app.urlRoot }}home" id="backBtn" class="btn btn-md btn-default">Back</a>
             </div>
             <div class="col-lg-2"></div>
         </div>

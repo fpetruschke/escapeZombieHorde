@@ -17,13 +17,17 @@ showDocumentation:
 
 
 createNewPlayer:
-  path: /api/player/create/new
+  path: /api/create/player
   defaults: { _controller: escapeZombieHorde\Controller\Api::createNewPlayer }
 
 getCurrentPlayerInfo:
-  path: /api/get/session/player
+  path: /api/get/player
   defaults: { _controller: escapeZombieHorde\Controller\Api::getSessionPlayer }
 
 deleteSessionPlayer:
-  path: /api/delete/session/player
+  path: /api/delete/player
   defaults: { _controller: escapeZombieHorde\Controller\Api::deleteSessionPlayer }
+
+startGame:
+  path: /api/game/start
+  defaults: { _controller: escapeZombieHorde\Controller\Api::startGame }

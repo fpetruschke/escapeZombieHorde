@@ -41,10 +41,12 @@ p {
 .btn:hover {
     background: #C0392B;
     color: #fff;
+    z-index: 999;
 }
 
 .container {
     display: table;
     padding-top: 18%;
+    padding-bottom: 18%;
     width: 100%;
 }
