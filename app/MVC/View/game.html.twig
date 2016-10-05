@@ -4,7 +4,7 @@
 <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-    <title>GeekOnJava: Directions Complex</title>
+    <title>ESCAPE ZOMBIE HORDE</title>
 
 
     <style>
@@ -42,13 +42,13 @@
         startLoc[0] = 'dratelnstrasse 72, Hamburg';
         startLoc[1] = 'mengestrasse 72, Hamburg';
         startLoc[2] = 'neuenfelder strasse 72, Hamburg';
-        startLoc[3] = {{ lat }}+','+{{ long }};
+        startLoc[3] = 'alsterdorfer strasse 122, Hamburg';
 
         var endLoc = new Array();
-        endLoc[0] = 'reeperbahn 12, Hamburg';
-        endLoc[1] = 'grosse bergstrasse 253, Hamburg';
-        endLoc[2] = '15.023,9.5438';
-        endLoc[3] = 'alsterdorfer strasse 122, Hamburg';
+        endLoc[0] = {{ player.startLat }}+','+{{ player.startLong }};
+        endLoc[1] = {{ player.startLat }}+','+{{ player.startLong }};
+        endLoc[2] = {{ player.startLat }}+','+{{ player.startLong }};
+        endLoc[3] = {{ player.startLat }}+','+{{ player.startLong }};
 
 
         var Colors = ["#0000FF", "#00FF00", "#0000FF"];
@@ -67,7 +67,7 @@
             }
             map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 
-            address = 'Hamburg, Germany';
+            address = {{ lat }}+','+{{ long }};
             geocoder = new google.maps.Geocoder();
             geocoder.geocode( { 'address': address}, function(results, status) {
                 map.fitBounds(results[0].geometry.viewport);
@@ -76,14 +76,22 @@
             // setRoutes();
         }
 
+        var zombieIcon = new google.maps.MarkerImage(
+                "{{ zombieIcon }}",
+                null, /* size is determined at runtime */
+                null, /* origin is 0,0 */
+                null, /* anchor is bottom center of the scaled image */
+                new google.maps.Size(30, 30)
+        );
 
         function createMarker(latlng, label, html) {
-// alert("createMarker("+latlng+","+label+","+html+","+color+")");
+        // alert("createMarker("+latlng+","+label+","+html+","+color+")");
             var contentString = '<b>'+label+'</b><br>'+html;
             var marker = new google.maps.Marker({
                 position: latlng,
                 map: map,
                 title: label,
+                icon: zombieIcon,
                 zIndex: Math.round(latlng.lat()*-100000)<<5
             });
             marker.myname = label;
@@ -109,7 +117,7 @@
                 }
                 directionsService = new google.maps.DirectionsService();
 
-                var travelMode = google.maps.DirectionsTravelMode.DRIVING;
+                var travelMode = google.maps.DirectionsTravelMode.WALKING;
 
                 var request = {
                     origin: startLoc[i],
@@ -160,13 +168,29 @@
                         disp.setDirections(response);
 
 
+                        var playerPosition = {lat: {{ lat }}, lng: {{ long}}};
+                        var playerIcon = new google.maps.MarkerImage(
+                                "{{ playerIcon }}",
+                                null, /* size is determined at runtime */
+                                null, /* origin is 0,0 */
+                                null, /* anchor is bottom center of the scaled image */
+                                new google.maps.Size(30, 30)
+                        );
+                        var playerMarker = new google.maps.Marker({
+                            position: playerPosition,
+                            map: map,
+                            title: 'Player',
+                            icon: playerIcon,
+                            //label: 'P',
+                        });
+
                         //Markers
                         for (i=0;i<legs.length;i++) {
                             if (i == 0) {
                                 startLocation[routeNum].latlng = legs[i].start_location;
                                 startLocation[routeNum].address = legs[i].start_address;
                                 // marker = google.maps.Marker({map:map,position: startLocation.latlng});
-                                marker[routeNum] = createMarker(legs[i].start_location,"start",legs[i].start_address,"green");
+                                marker[routeNum] = createMarker(legs[i].start_location,"ZOMBIE",legs[i].start_address,"green");
                             }
                             endLocation[routeNum].latlng = legs[i].end_location;
                             endLocation[routeNum].address = legs[i].end_address;

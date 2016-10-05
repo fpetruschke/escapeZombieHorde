@@ -68,13 +68,18 @@ class Api {
             return new Response("No active player in SESSION.", 200);
         } else {
 
-            var_dump($_SESSION['player']->getStartLat());
+            $player = $_SESSION['player'];
+            $playerIcon = $app['serverRoot'] . "img/playerIcon.png";
+            $zombieIcon = $app['serverRoot'] . "img/zombieIcon.png";
 
             return $app['twig']->render(
                 'game.html.twig',
                 array(
-                    'lat' => $_SESSION['player']->getStartLat(),
-                    'long' => $_SESSION['player']->getStartLong()
+                    'player'    => $player,
+                    'playerIcon'=> $playerIcon,
+                    'zombieIcon'=> $zombieIcon,
+                    'lat'       => $_SESSION['player']->getStartLat(),
+                    'long'      => $_SESSION['player']->getStartLong()
                 )
             );
 
