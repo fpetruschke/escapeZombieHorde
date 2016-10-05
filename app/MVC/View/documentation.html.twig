@@ -57,7 +57,7 @@
                             <div class="panel-body">
                                 <p><strong>Request reads out the current $_SESSION['player'] as json encoded String</strong></p>
                                 <p><pre>URL/api/get/player</pre></p>
-                                <a href="zombie.menkar.uberspace.de/api/get/player" target="_blank" class="btn btn-info pull-right">Demo</a>
+                                <a href="{{ app.urlRoot }}api/get/player" target="_blank" class="btn btn-info pull-right">Demo</a>
                             </div>
                         </div>
                     </div>
@@ -73,7 +73,7 @@
                                     <li>LONGITUDE: current longitude</li>
                                 </ol>
                                 <p><pre>URL/api/create/player?lat=LATITUDE&long=LONGITUDE</pre></p>
-                                <a href="zombie.menkar.uberspace.de/api/create/player?lat=15.123&long=10.000" target="_blank" class="btn btn-info pull-right">Demo</a>
+                                <a href="{{ app.urlRoot }}api/create/player?lat=15.123&long=10.000" target="_blank" class="btn btn-info pull-right">Demo</a>
                             </div>
                         </div>
                     </div>
@@ -86,7 +86,7 @@
                                 <p><strong>Request deletes the current $_SESSION['player'] and destroys the session</strong></p>
                                 <p class="alert-danger"><strong>Requires an active $_SESSION['player']</strong><i> (see "create new player")</i></p>
                                 <p><pre>URL/api/delete/player</pre></p>
-                                <a href="zombie.menkar.uberspace.de/api/delete/player" target="_blank" class="btn btn-info pull-right">Demo</a>
+                                <a href="{{ app.urlRoot }}api/delete/player" target="_blank" class="btn btn-info pull-right">Demo</a>
                             </div>
                         </div>
                     </div>
@@ -99,7 +99,7 @@
                                 <p><strong>Request starts a new game.</strong>
                                 <p class="alert-danger"><strong>Requires an active $_SESSION['player']</strong><i> (see "create new player")</i></p>
                                 <p><pre>URL/api/game/start</pre></p>
-                                <a href="zombie.menkar.uberspace.de/api/game/start" target="_blank" class="btn btn-info pull-right">Demo</a>
+                                <a href="{{ app.urlRoot }}api/game/start" target="_blank" class="btn btn-info pull-right">Demo</a>
                             </div>
                         </div>
                     </div>
