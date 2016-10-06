@@ -410,18 +410,17 @@
                         startLocation[routeNum] = new Object();
                         endLocation[routeNum] = new Object();
 
-
                         polyline[routeNum] = new google.maps.Polyline({
                             path: [],
                             strokeColor: '#FF0000',
-                            strokeOpacity: 0.00001,
+                            strokeOpacity: 0.0,
                             strokeWeight: 0
                         });
 
                         poly2[routeNum] = new google.maps.Polyline({
                             path: [],
                             strokeColor: '#FF0000',
-                            strokeOpacity: 0.00001,
+                            strokeOpacity: 0.0,
                             strokeWeight: 0
                         });
 
@@ -537,7 +536,7 @@
             eol[index]=polyline[index].Distance();
             map.setCenter(polyline[index].getPath().getAt(0));
 
-            poly2[index] = new google.maps.Polyline({path: [polyline[index].getPath().getAt(0)], strokeColor:"#FF0000", strokeOpacity: 0.00001, strokeWeight:0});
+            poly2[index] = new google.maps.Polyline({path: [polyline[index].getPath().getAt(0)], strokeColor:"#FF0000", strokeOpacity: 0.0, strokeWeight:0 });
 
             timerHandle[index] = setTimeout("animate("+index+",50)",2000);  // Allow time for the initial map display
         }
@@ -577,7 +576,6 @@
                     playersLat = playersPosition.lat().toFixed(4);
                     playersLong = playersPosition.lng().toFixed(4);
 
-                    console.log("PLAYER: " + playersLong, "ZOMBIE: " + zombiesLong);
                     if(playersLat == zombiesLat && playersLong == zombiesLong) {
                         playerIsDead();
                     }

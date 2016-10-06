@@ -42,7 +42,9 @@ class AppController
      */
     public function checkIfAndroidAppIsExistent(Application $app) {
 
-        if(!file_exists("/var/www/html/" . $app['androidApp'])) {
+        var_dump(__DIR__ . "/../../../.." .$app['androidApp']);
+
+        if(!file_exists(__DIR__ . "/../../../.." .$app['androidApp'])) {
             return json_encode(array('response' => array(
                 'message' => 'The android application is not available at the moment.',
                 'code' => 'note'

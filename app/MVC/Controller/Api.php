@@ -20,6 +20,16 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 
 class Api {
 
+    /**
+     * createNewPlayer
+     *
+     * Creates a new player with the given latitude and longitude
+     * and stores it into database.
+     *
+     * @param Application $app  Silex Application
+     * @param Request $request  HTTP Request
+     * @return Response         String and status code
+     */
     public function createNewPlayer(Application $app, Request $request) {
 
         if(!empty($request->query->get("lat")) && null != $request->query->get("lat")) {
@@ -98,7 +108,16 @@ class Api {
 
     }
 
-
+    /**
+     * generatePositionCloseToPlayer
+     *
+     * Is used for generating zombies around the player.
+     * Method will either add or substract from players' longitude/latitude
+     * for the zombies' longitude/latitude
+     *
+     * @param $playersLongOrLat float   latitude or longitude of the player
+     * @return float
+     */
     public function generatePositionCloseToPlayer($playersLongOrLat) {
 
         $indicator = rand(0,1);
@@ -111,6 +130,14 @@ class Api {
 
     }
 
+    /**
+     * getRandomFloat
+     *
+     * Method is used for generating zombies spawn positions near
+     * the players position
+     *
+     * @return float
+     */
     public function getRandomFloat() {
         $Min = 0.0008;
         $Max = 0.0020;
@@ -129,6 +156,15 @@ class Api {
         return $randomfloat;
     }
 
+    /**
+     * getSessionPlayer
+     *
+     * Searches for the stored ($_SESSION) player id in the database
+     * and returns the player as json object
+     *
+     * @param Application $app
+     * @return Response
+     */
     public function getSessionPlayer(Application $app) {
         session_start();
 
@@ -153,6 +189,15 @@ class Api {
 
     }
 
+    /**
+     * getActivePlayers
+     *
+     * Searches all players from the db and returns them
+     * as json objects
+     *
+     * @param Application $app
+     * @return Response
+     */
     public function getActivePlayers(Application $app) {
         // get entity Manager
         $em = $app['eM'];
@@ -168,6 +213,15 @@ class Api {
         }
     }
 
+    /**
+     * deleteSessionPlayer
+     *
+     * Method searches for the player id stored in the $_SESSION inside the database
+     * and deletes the player and the belonging inventory
+     *
+     * @param Application $app
+     * @return Response
+     */
     public function deleteSessionPlayer(Application $app) {
         session_start();
 
@@ -200,6 +254,14 @@ class Api {
         }
     }
 
+    /**
+     * deleteAllZombies
+     *
+     * Method deletes all zombies from database
+     *
+     * @param Application $app
+     * @return Response
+     */
     public function deleteAllZombies(Application $app) {
         // get entity Manager
         $em = $app['eM'];
@@ -213,6 +275,15 @@ class Api {
         return new Response("Zombies deleted.", 200);
     }
 
+    /**
+     * deleteAll
+     *
+     * Method deletes all players, belonging inventories and zombies
+     * from the database
+     *
+     * @param Application $app
+     * @return Response
+     */
     public function deleteAll(Application $app) {
 
         // get entity Manager
@@ -250,6 +321,14 @@ class Api {
 
     }
 
+    /**
+     * startGame
+     *
+     * Gets the current players and zombies and displays them on the map
+     *
+     * @param Application $app
+     * @return Response
+     */
     public function startGame(Application $app) {
         session_start();
 
@@ -269,14 +348,14 @@ class Api {
                 $playerIcon = $app['serverRoot'] . "img/playerIcon.png";
                 $zombieIcon = $app['serverRoot'] . "img/zombieIcon.png";
 
-                // get entity Manager
-                $em = $app['eM'];
                 $zombies = $em->getRepository('escapeZombieHorde\Model\Zombie')->findAll();
+                $players = $em->getRepository('escapeZombieHorde\Model\Player')->findAll();
 
                 return $app['twig']->render(
                     'game.html.twig',
                     array(
                         'player'    => $player,
+                        'players'   => $players,
                         'zombies'   => $zombies,
                         'playerIcon'=> $playerIcon,
                         'zombieIcon'=> $zombieIcon,
@@ -286,6 +365,15 @@ class Api {
         }
     }
 
+    /**
+     * updatePlayerPosition
+     *
+     * Method for updateing the stored players' positions (latitude and longitude)
+     *
+     * @param Application $app
+     * @param Request $request
+     * @return Response
+     */
     public function updatePlayerPosition(Application $app, Request $request) {
 
         if(!empty($request->query->get("lat")) && null != $request->query->get("lat")) {
