@@ -544,12 +544,6 @@
 
         //----------------------------------------------------------------------------
 
-        function playerIsDead() {
-            $.ajax({
-                type: "POST",
-                url: "{{ app.urlRoot }}api/delete/player"
-            });
-        }
 
         function updatePlayerPosition() {
             if(playerMarker) {
@@ -559,12 +553,41 @@
                 if(("{{ player.currentLat }}" != latitude) || ("{{ player.currentLong }}" != longitude)) {
                     var newLatLng = new google.maps.LatLng("{{ player.currentLat }}", "{{ player.currentLong }}");
                     playerMarker.setPosition(newLatLng);
+
                 }
+            }
+        }
+
+        function playerIsDead() {
+            $.ajax({
+                type: "POST",
+                url: "{{ app.urlRoot }}api/delete/player"
+            });
+            alert("The zombie horde caught you. You are now dead.");
+        }
+
+        function checkForCollision() {
+            if(playerMarker) {
+                $.each( marker, function( index, value ){
+                    zombiesPosition = value.getPosition();
+                    zombiesLat = (zombiesPosition.lat().toFixed(4));
+                    zombiesLong = (zombiesPosition.lng().toFixed(4));
+
+                    playersPosition = playerMarker.getPosition();
+                    playersLat = playersPosition.lat().toFixed(4);
+                    playersLong = playersPosition.lng().toFixed(4);
+
+                    console.log("PLAYER: " + playersLong, "ZOMBIE: " + zombiesLong);
+                    if(playersLat == zombiesLat && playersLong == zombiesLong) {
+                        playerIsDead();
+                    }
+                });
             }
         }
 
         setInterval(function(){
             updatePlayerPosition();
+            checkForCollision();
         }, 500);
 
     </script>
