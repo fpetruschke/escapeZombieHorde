@@ -6,7 +6,7 @@ body {
     background-color: Azure;
     font-size: 2em;
     font-family: 'Open Sans Condensed', sans-serif;
-    font-weight: 700;
+    font-weight: 600;
     color: white;
     text-align: center;
     text-transform: uppercase;
@@ -14,20 +14,21 @@ body {
 
 h1 {
     margin-bottom: 10px;
-    font-size: 4em;
+    font-size: 3.5em;
     font-family: 'Fjalla One', sans-serif;
 }
 
 p {
     font-weight: 300;
-    font-size: 1.6em;
+    font-size: 1.3em;
     margin-top: 20px;
 }
 
 .btn {
     display: inline-block;
+    min-width: 300px;
     background-color: rgba(252,252,252,0.6);
-    font-size: 1em;
+    font-size: 1.0em;
     padding: 10px 40px;
     border: 2px solid white;
     color: #333;
@@ -47,6 +48,6 @@ p {
 .container {
     display: table;
     padding-top: 18%;
-    padding-bottom: 18%;
+    padding-bottom: 150px;
     width: 100%;
 }

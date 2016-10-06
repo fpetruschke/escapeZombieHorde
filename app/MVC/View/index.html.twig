@@ -7,14 +7,15 @@
         body {
             background-image: url("{{ app.serverRoot }}img/background.jpg");
             /*Please mention the mobiles when using overflow: hidden;*/
-            /*transition: all .5s ease-in-out;*/
+            /*overflow: hidden;
+            transition: all .5s ease-in-out;*/
         }
         body:hover {
             /*transform: scale(1.1);*/
         }
         #fogCanvas
         {
-            height:200px;
+            height:150px;
             width:100%;
             position: fixed;
             right: 0;
@@ -29,7 +30,9 @@
         <h1>Escape Zombie Horde</h1>
         <p>An android app that interacts with a webservice<br> tracking your footsteps and spawning zombies near you.</p>
         <div id="notification"></div>
-        <a class="btn" href="{{ app.androidApp }}" onclick="checkIfAndroidAppExists();">Download Android-Client</a>
+        <a class="btn" href="{{ app.androidApp }}" onclick="checkIfAndroidAppExists();">
+            <span class="glyphicon glyphicon-download pull-left"></span> Android-Client
+        </a>
         <a href="{{ app.urlRoot }}documentation" class="btn" >API-Documentation</a>
     </div>
 
