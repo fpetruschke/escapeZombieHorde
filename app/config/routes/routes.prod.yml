@@ -24,9 +24,21 @@ getCurrentPlayerInfo:
   path: /api/get/player
   defaults: { _controller: escapeZombieHorde\Controller\Api::getSessionPlayer }
 
+getActivePlayersInfo:
+  path: /api/get/players
+  defaults: { _controller: escapeZombieHorde\Controller\Api::getActivePlayers }
+
 deleteSessionPlayer:
   path: /api/delete/player
   defaults: { _controller: escapeZombieHorde\Controller\Api::deleteSessionPlayer }
+
+deleteAllZombies:
+  path: /api/delete/zombies
+  defaults: { _controller: escapeZombieHorde\Controller\Api::deleteAllZombies }
+
+deleteAll:
+  path: /api/delete/all
+  defaults: { _controller: escapeZombieHorde\Controller\Api::deleteAll }
 
 startGame:
   path: /api/game/start
