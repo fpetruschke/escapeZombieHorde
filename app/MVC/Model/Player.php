@@ -1,6 +1,7 @@
 <?php
 
 namespace escapeZombieHorde\Model;
+use Silex\Application;
 
 /**
  * Player

@@ -57,12 +57,18 @@ $app['log'] = new \escapeZombieHorde\Controller\Tools\logController(__DIR__ . '/
 // for debugging purposes set to "true"
 $app['debug'] = false;
 
+/*
+ * Registering a service provider for accessing active players
+ */
+$app["activePlayers"] = $app->share(function () {
+    return new \escapeZombieHorde\Model\ActivePlayers();
+});
+
 /**
  * setting environment vars
  */
 $env = getenv('APP_ENV') ?: 'prod';
 $app->register(new Igorw\Silex\ConfigServiceProvider(__DIR__."/../app/config/environment/".$env.".yml"));
-
 
 // run Silex application with the above configuration
 $app->run();

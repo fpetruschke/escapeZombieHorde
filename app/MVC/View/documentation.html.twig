@@ -63,6 +63,19 @@
                         </div>
                     </div>
                     <div class="panel panel-default">
+                        <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#collapseAllPlayers">
+                            <h4 class="panel-title"><strong>Get active players info</strong></h4>
+                        </div>
+                        <div id="collapseAllPlayers" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <p><strong>Request reads out the current $app['activePlayers'] as json encoded String</strong></p>
+                                <p class="alert-danger"><strong>Requires at least one active $_SESSION['player']</strong><i> (see "create new player")</i></p>
+                                <p><pre>URL/api/get/players</pre></p>
+                                <a href="{{ app.urlRoot }}api/get/players" target="_blank" class="btn btn-info pull-right">Demo</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
                         <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#collapse2">
                             <h4 class="panel-title"><strong>Create new player</strong></h4>
                         </div>

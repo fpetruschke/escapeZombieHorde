@@ -30,6 +30,7 @@ class Api {
         }
 
         $player = new Player($latitude, $longitude);
+        $app['activePlayers']->addPlayer($player);
 
         session_start();
         $_SESSION['player'] = $player;
@@ -40,7 +41,7 @@ class Api {
     public function getSessionPlayer(Application $app) {
         session_start();
 
-        if ($_SESSION['player'] == null) {
+        if (!key_exists('player',$_SESSION) or $_SESSION['player'] == null) {
             return new Response("No active player in SESSION.", 500);
         } else {
             $sessionToJson = str_replace('*', '',str_replace('\\u0000', '', json_encode((array)$_SESSION['player'])));
@@ -49,10 +50,17 @@ class Api {
 
     }
 
+    public function getActivePlayers(Application $app) {
+        /*foreach ($app['activePlayers'] as $activePlayer) {
+            $activePlayers[] = str_replace('*', '',str_replace('\\u0000', '', json_encode((array)$activePlayer)));
+        }*/
+        return new Response(json_encode("Here should be dragons..."),200);
+    }
+
     public function deleteSessionPlayer(Application $app) {
         session_start();
 
-        if ($_SESSION['player'] == null) {
+        if (!key_exists('player',$_SESSION) or $_SESSION['player'] == null) {
             return new Response("No active player in SESSION.", 200);
         } else {
             session_unset();
@@ -64,7 +72,7 @@ class Api {
     public function startGame(Application $app) {
         session_start();
 
-        if ($_SESSION['player'] == null) {
+        if (!key_exists('player',$_SESSION) or $_SESSION['player'] == null) {
             return new Response("No active player in SESSION.", 200);
         } else {
 
