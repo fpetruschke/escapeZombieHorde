@@ -44,7 +44,7 @@
             <div class="col-lg-2"></div>
             <div class="col-lg-8">
                 <div class="well">
-                    <h1>Documentation</h1>
+                    <h1>API-Documentation</h1>
                     <p><strong><i>URL</i></strong> = http://zombie.menkar.uberspace.de</p>
                     <p><strong><i>Demos</i></strong> open in new tab</p>
                 </div>
@@ -127,6 +127,23 @@
                                 <p><strong>Request deletes all zombies and all players including their inventory</strong></p>
                                 <p><pre>URL/api/delete/all</pre></p>
                                 <a href="{{ app.urlRoot }}api/delete/all" target="_blank" class="btn btn-info pull-right">Demo</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#updatePlayersPosition">
+                            <h4 class="panel-title"><strong>Update Players' position</strong></h4>
+                        </div>
+                        <div id="updatePlayersPosition" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <p><strong>Request updates the active player whose id is stored inside the $_SESSION['player']</strong></p>
+                                <p class="alert-danger"><strong>Requires an active player</strong><i> (see "create new player")</i></p>
+                                <ol>
+                                    <li>LATITUDE: current latitude</li>
+                                    <li>LONGITUDE: current longitude</li>
+                                </ol>
+                                <p><pre>URL/api/update/player/position?lat=LATITUDE&long=LONGITUDE</pre></p>
+                                <a href="{{ app.urlRoot }}api/update/player/position?lat=53.550717&long=9.993041" target="_blank" class="btn btn-info pull-right">Demo</a>
                             </div>
                         </div>
                     </div>

@@ -43,3 +43,7 @@ deleteAll:
 startGame:
   path: /escapeZombieHorde/api/game/start
   defaults: { _controller: escapeZombieHorde\Controller\Api::startGame }
+
+updatePlayerPosition:
+  path: /escapeZombieHorde/api/update/player/position
+  defaults: { _controller: escapeZombieHorde\Controller\Api::updatePlayerPosition }

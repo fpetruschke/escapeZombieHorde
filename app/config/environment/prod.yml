@@ -16,7 +16,7 @@ routesConfigFile: routes.prod.yml
 androidApp: /web/android/escapeZombieHorde.apk
 
 # mysql database config
-DbConfigIsDevMode : false
+DbConfigIsDevMode : true # WATCH OUT: Setting this to false will effect a bug!
 DbConfigHost : 127.0.0.1
 DbConfigUser : zombie
 DbConfigPwd :

@@ -142,7 +142,7 @@ class Api {
             $player = $em->getRepository('escapeZombieHorde\Model\Player')->findOneBy(array("id" => $_SESSION['player']));
             if(empty($player)) {
                 // failure: no active player
-                return new Response("No active player in sesson.", 500);
+                return new Response("No active player in sesson.", 200);
             } else {
                 // converting object to json
                 $serializer = new Serializer(array(new GetSetMethodNormalizer()), array('json' => new JsonEncoder()));
@@ -259,7 +259,7 @@ class Api {
 
             // get entity Manager
             $em = $app['eM'];
-
+            // get player
             $player = $em->getRepository('escapeZombieHorde\Model\Player')->findOneBy(array("id" => $_SESSION['player']));
             if(empty($player)) {
                 // failure: no active player
@@ -286,4 +286,38 @@ class Api {
         }
     }
 
+    public function updatePlayerPosition(Application $app, Request $request) {
+
+        if(!empty($request->query->get("lat")) && null != $request->query->get("lat")) {
+            $latitude = $request->query->get("lat");
+        } else {
+            return new Response("Latitude is missing.", 500);
+        }
+        if(!empty($request->query->get("long")) && null != $request->query->get("long")) {
+            $longitude = $request->query->get("long");
+        } else {
+            return new Response("Longitude is missing.", 500);
+        }
+
+        // check if player id is available in $_SESSION
+        session_start();
+        if (!key_exists('player',$_SESSION) or $_SESSION['player'] == null) {
+            return new Response("No active player in session.", 500);
+        } else {
+            // get entity Manager
+            $em = $app['eM'];
+            // get player
+            $player = $em->getRepository('escapeZombieHorde\Model\Player')->findOneBy(array("id" => $_SESSION['player']));
+            if (empty($player)) {
+                // failure: no player found
+                return new Response("No active player in sesson.", 500);
+            } else {
+                $player->setCurrentLat($latitude);
+                $player->setCurrentLong($longitude);
+                $em->persist($player);
+                $em->flush();
+            }
+            return new Response("Updated players' position", 200);
+        }
+    }
 }

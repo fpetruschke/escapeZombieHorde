@@ -16,7 +16,7 @@
         body{height:100%;margin:0px;font-family: Helvetica,Arial;}
     </style>
 
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&key=AIzaSyAwKjha6XNQ521YZteTYwLUFElnRIeUPcQ"></script>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&key=AIzaSyAwKjha6XNQ521YZteTYwLUFElnRIeUPcQ&libraries=places,drawing,geometry"></script>
     <script type ="text/javascript" src="http://www.geocodezip.com/scripts/v3_epoly.js"></script>
     <script type="text/javascript">
 
@@ -26,6 +26,7 @@
         var stepDisplay;
 
         var position;
+        var playerMarker;
         var marker = [];
         var polyline = [];
         var poly2 = [];
@@ -47,18 +48,13 @@
         var Colors = new Array();
 
         {% for key,zombie in zombies %}
-                                    // '53.497750, 10.003413';
-            //zlat = (Math.random() + 53.497750).toString();
-            //zlong = (Math.random() + 10.003413).toString();
-
             zlat = "{{ zombie.currentLat }}";
             zlong = "{{ zombie.currentLong }}";
             zLoc = zlat + ',' + zlong;
             pLoc = '{{ player.currentLat }}, {{ player.currentLong }}';
             startLoc["{{ key }}"] = zLoc.toString();
             endLoc["{{ key }}"] = pLoc.toString();
-            Colors["{{ key }}"] = "#0000FF";
-
+            Colors["{{ key }}"] = "#FFFFFF";
         {% endfor %}
 
 
@@ -448,7 +444,7 @@
                                 null, /* anchor is bottom center of the scaled image */
                                 new google.maps.Size(30, 30)
                         );
-                        var playerMarker = new google.maps.Marker({
+                        playerMarker = new google.maps.Marker({
                             position: playerPosition,
                             map: map,
                             title: 'Player',
@@ -550,11 +546,26 @@
 
         function playerIsDead() {
             $.ajax({
-                type: "GET",
+                type: "POST",
                 url: "{{ app.urlRoot }}api/delete/player"
             });
         }
 
+        function updatePlayerPosition() {
+            if(playerMarker) {
+                latLng = playerMarker.getPosition();
+                latitude = latLng.lat();
+                longitude = latLng.lng();
+                if(("{{ player.currentLat }}" != latitude) || ("{{ player.currentLong }}" != longitude)) {
+                    var newLatLng = new google.maps.LatLng("{{ player.currentLat }}", "{{ player.currentLong }}");
+                    playerMarker.setPosition(newLatLng);
+                }
+            }
+        }
+
+        setInterval(function(){
+            updatePlayerPosition();
+        }, 500);
 
     </script>
 </head>
