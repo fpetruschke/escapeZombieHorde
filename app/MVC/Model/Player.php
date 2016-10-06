@@ -30,7 +30,7 @@ class Player
     /**
      * @var     Inventory   Belonging inventory
      */
-    protected $inventoryId;
+    protected $inventory;
 
     /**
      * @var     float   Longitude of the position the player started at
@@ -52,28 +52,12 @@ class Player
      */
     protected $currentLat;
 
-
-    public function __construct($lat, $long) {
-        // id consists of 15 characters, first is always "_"
-        $this->id = str_pad(str_replace(".","","_" . $lat . rand(0, 999) . $long), 15, 9);
-        $this->startLat = $lat;
-        $this->startLong = $long;
-    }
-
     /**
      * @return int
      */
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * @param int $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
     }
 
     /**
@@ -111,17 +95,17 @@ class Player
     /**
      * @return Inventory
      */
-    public function getInventoryId()
+    public function getInventory()
     {
-        return $this->inventoryId;
+        return $this->inventory;
     }
 
     /**
-     * @param Inventory $inventoryId
+     * @param Inventory $inventory
      */
-    public function setInventoryId($inventoryId)
+    public function setInventory($inventory)
     {
-        $this->inventoryId = $inventoryId;
+        $this->inventory = $inventory;
     }
 
     /**

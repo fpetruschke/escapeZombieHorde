@@ -26,15 +26,6 @@ class Zombie
      */
     protected $ammo;
 
-    /**
-     * @var     float   Starting latitude
-     */
-    protected $startingLat;
-
-    /**
-     * @var     float   Starting longitude
-     */
-    protected $startingLong;
 
     /**
      * @var     float   Current latitude
@@ -55,14 +46,6 @@ class Zombie
     }
 
     /**
-     * @param int $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
      * @return int
      */
     public function getHp()
@@ -71,7 +54,7 @@ class Zombie
     }
 
     /**
-     * @param int $hp
+     * @param int
      */
     public function setHp($hp)
     {
@@ -92,38 +75,6 @@ class Zombie
     public function setAmmo($ammo)
     {
         $this->ammo = $ammo;
-    }
-
-    /**
-     * @return float
-     */
-    public function getStartingLat()
-    {
-        return $this->startingLat;
-    }
-
-    /**
-     * @param float $startingLat
-     */
-    public function setStartingLat($startingLat)
-    {
-        $this->startingLat = $startingLat;
-    }
-
-    /**
-     * @return float
-     */
-    public function getStartingLong()
-    {
-        return $this->startingLong;
-    }
-
-    /**
-     * @param float $startingLong
-     */
-    public function setStartingLong($startingLong)
-    {
-        $this->startingLong = $startingLong;
     }
 
     /**

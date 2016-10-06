@@ -1,0 +1,17 @@
+escapeZombieHorde\Model\Zombie:
+  type: entity
+  table: zombies
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    hp:
+      type: integer
+    ammo:
+      type: integer
+    currentLat:
+      type: float
+    currentLong:
+      type: float

@@ -2,11 +2,22 @@
 serverRoot : /escapeZombieHorde/web/
 urlRoot : /escapeZombieHorde/
 
+# silexs' debug mode
 debug: true
 
+# twigs' debug mode
 twig.options:
   debug: true
 
+# routing config
 routesConfigFile: routes.dev.yml
 
+# app file
 androidApp: /escapeZombieHorde/web/android/escapeZombieHorde.apk
+
+# mysql database config
+DbConfigIsDevMode : true
+DbConfigHost : localhost
+DbConfigUser : zombie
+DbConfigPwd : BRAINS
+DbConfigDatabase : zombie_game

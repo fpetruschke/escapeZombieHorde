@@ -51,12 +51,12 @@
                 <div class="panel-group" id="accordion">
                     <div class="panel panel-default">
                         <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                            <h4 class="panel-title"><strong>Get player info</strong></h4>
+                            <h4 class="panel-title"><strong>Get player</strong></h4>
                         </div>
                         <div id="collapse1" class="panel-collapse collapse">
                             <div class="panel-body">
-                                <p><strong>Request reads out the current $_SESSION['player'] as json encoded String</strong></p>
-                                <p class="alert-danger"><strong>Requires an active $_SESSION['player']</strong><i> (see "create new player")</i></p>
+                                <p><strong>Request reads out the current player as json encoded String</strong></p>
+                                <p class="alert-danger"><strong>Requires an active player</strong><i> (see "create new player")</i></p>
                                 <p><pre>URL/api/get/player</pre></p>
                                 <a href="{{ app.urlRoot }}api/get/player" target="_blank" class="btn btn-info pull-right">Demo</a>
                             </div>
@@ -64,12 +64,12 @@
                     </div>
                     <div class="panel panel-default">
                         <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#collapseAllPlayers">
-                            <h4 class="panel-title"><strong>Get active players info</strong></h4>
+                            <h4 class="panel-title"><strong>Get all players</strong></h4>
                         </div>
                         <div id="collapseAllPlayers" class="panel-collapse collapse">
                             <div class="panel-body">
-                                <p><strong>Request reads out the current $app['activePlayers'] as json encoded String</strong></p>
-                                <p class="alert-danger"><strong>Requires at least one active $_SESSION['player']</strong><i> (see "create new player")</i></p>
+                                <p><strong>Request reads out the current players as json encoded String</strong></p>
+                                <p class="alert-danger"><strong>Requires at least one active player</strong><i> (see "create new player")</i></p>
                                 <p><pre>URL/api/get/players</pre></p>
                                 <a href="{{ app.urlRoot }}api/get/players" target="_blank" class="btn btn-info pull-right">Demo</a>
                             </div>
@@ -81,13 +81,15 @@
                         </div>
                         <div id="collapse2" class="panel-collapse collapse">
                             <div class="panel-body">
-                                <p><strong>Request creates a new player instance and stores it into the $_SESSION['player']</strong></p>
+                                <p><strong>Request creates a new player instance and stores it into the database</strong></p>
+                                <p>The players' id will be stored into the $_SESSION['player']</p>
                                 <ol>
                                     <li>LATITUDE: current latitude</li>
                                     <li>LONGITUDE: current longitude</li>
+                                    <li>NAME: players' name</li>
                                 </ol>
-                                <p><pre>URL/api/create/player?lat=LATITUDE&long=LONGITUDE</pre></p>
-                                <a href="{{ app.urlRoot }}api/create/player?lat=53.499647&long=10.002258" target="_blank" class="btn btn-info pull-right">Demo</a>
+                                <p><pre>URL/api/create/player?lat=LATITUDE&long=LONGITUDE&name=NAME</pre></p>
+                                <a href="{{ app.urlRoot }}api/create/player?lat=53.499647&long=10.002258&name=Max" target="_blank" class="btn btn-info pull-right">Demo</a>
                             </div>
                         </div>
                     </div>
@@ -97,10 +99,34 @@
                         </div>
                         <div id="collapse3" class="panel-collapse collapse">
                             <div class="panel-body">
-                                <p><strong>Request deletes the current $_SESSION['player'] and destroys the session</strong></p>
-                                <p class="alert-danger"><strong>Requires an active $_SESSION['player']</strong><i> (see "create new player")</i></p>
+                                <p><strong>Request deletes the current player and destroys the session</strong></p>
+                                <p class="alert-danger"><strong>Requires an active player</strong><i> (see "create new player")</i></p>
                                 <p><pre>URL/api/delete/player</pre></p>
                                 <a href="{{ app.urlRoot }}api/delete/player" target="_blank" class="btn btn-info pull-right">Demo</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#deleteAllZombies">
+                            <h4 class="panel-title"><strong>Delete all zombies</strong></h4>
+                        </div>
+                        <div id="deleteAllZombies" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <p><strong>Request deletes all zombies</strong></p>
+                                <p><pre>URL/api/delete/zombies</pre></p>
+                                <a href="{{ app.urlRoot }}api/delete/zombies" target="_blank" class="btn btn-info pull-right">Demo</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#deleteAll">
+                            <h4 class="panel-title"><strong>Delete all zombies and all players</strong></h4>
+                        </div>
+                        <div id="deleteAll" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <p><strong>Request deletes all zombies and all players including their inventory</strong></p>
+                                <p><pre>URL/api/delete/all</pre></p>
+                                <a href="{{ app.urlRoot }}api/delete/all" target="_blank" class="btn btn-info pull-right">Demo</a>
                             </div>
                         </div>
                     </div>

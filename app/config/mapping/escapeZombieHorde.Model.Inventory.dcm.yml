@@ -1,0 +1,17 @@
+escapeZombieHorde\Model\Inventory:
+  type: entity
+  table: inventories
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    slots:
+      type: integer
+    knife:
+      type: boolean
+    pistol:
+      type: boolean
+    ammo:
+      type: integer

@@ -6,6 +6,9 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
     <link rel="shortcut icon" href="{{ app.serverRoot }}img/icon.png" type="image/x-icon" />
 
+    {# jQuery JS #}
+    <script src="{{ app.serverRoot }}js/jquery-1.12.0.min.js"></script>
+
     <title>ESCAPE ZOMBIE HORDE</title>
 
     <style>
@@ -40,19 +43,23 @@
         var nextPanoId;
 
         var startLoc = new Array();
-        startLoc[0] = '53.499632, 9.998679';
-        startLoc[1] = 'mengestrasse 72, Hamburg';
-        startLoc[2] = '53.497750, 10.003413';
-        startLoc[3] = '53.501366, 10.002606';
-
         var endLoc = new Array();
-        endLoc[0] = {{ player.startLat }}+','+{{ player.startLong }};
-        endLoc[1] = {{ player.startLat }}+','+{{ player.startLong }};
-        endLoc[2] = {{ player.startLat }}+','+{{ player.startLong }};
-        endLoc[3] = {{ player.startLat }}+','+{{ player.startLong }};
+        var Colors = new Array();
 
+        {% for key,zombie in zombies %}
+                                    // '53.497750, 10.003413';
+            //zlat = (Math.random() + 53.497750).toString();
+            //zlong = (Math.random() + 10.003413).toString();
 
-        var Colors = ["#0000FF", "#00FF00", "#0000FF"];
+            zlat = "{{ zombie.currentLat }}";
+            zlong = "{{ zombie.currentLong }}";
+            zLoc = zlat + ',' + zlong;
+            pLoc = '{{ player.currentLat }}, {{ player.currentLong }}';
+            startLoc["{{ key }}"] = zLoc.toString();
+            endLoc["{{ key }}"] = pLoc.toString();
+            Colors["{{ key }}"] = "#0000FF";
+
+        {% endfor %}
 
 
         function initialize() {
@@ -65,7 +72,7 @@
             var myOptions = {
                 zoom: 18,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
-            }
+            };
             map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 
             // custom style
@@ -329,14 +336,14 @@
             ];
 
             map.setOptions({styles: styles});
-
-            address = {{ lat }}+','+{{ long }};
+//##########################################################################################
+            address = '53.497750, 10.003413';
             geocoder = new google.maps.Geocoder();
             geocoder.geocode( { 'address': address}, function(results, status) {
                 map.fitBounds(results[0].geometry.viewport);
 
             });
-            // setRoutes();
+            setRoutes();
         }
 
         var zombieIcon = new google.maps.MarkerImage(
@@ -377,7 +384,7 @@
                     map: map,
                     suppressMarkers : true,
                     preserveViewport: true
-                }
+                };
                 directionsService = new google.maps.DirectionsService();
 
                 var travelMode = google.maps.DirectionsTravelMode.WALKING;
@@ -410,14 +417,16 @@
 
                         polyline[routeNum] = new google.maps.Polyline({
                             path: [],
-                            strokeColor: '#FFFF00',
-                            strokeWeight: 3
+                            strokeColor: '#FF0000',
+                            strokeOpacity: 0.00001,
+                            strokeWeight: 0
                         });
 
                         poly2[routeNum] = new google.maps.Polyline({
                             path: [],
-                            strokeColor: '#FFFF00',
-                            strokeWeight: 3
+                            strokeColor: '#FF0000',
+                            strokeOpacity: 0.00001,
+                            strokeWeight: 0
                         });
 
 
@@ -430,8 +439,8 @@
                         disp.setMap(map);
                         disp.setDirections(response);
 
-
-                        var playerPosition = {lat: {{ lat }}, lng: {{ long}}};
+//##########################################################################################
+                        var playerPosition = {lat: {{ player.currentLat }}, lng: {{ player.currentLong }}};
                         var playerIcon = new google.maps.MarkerImage(
                                 "{{ playerIcon }}",
                                 null, /* size is determined at runtime */
@@ -512,6 +521,9 @@
             if (d>eol[index]) {
 
                 marker[index].setPosition(endLocation[index].latlng);
+                if(marker[index].getPosition() == "{{ player.currentLat }}" + ", " + "{{ player.currentLong }}") {
+                    playerIsDead();
+                }
                 return;
             }
             var p = polyline[index].GetPointAtDistance(d);
@@ -529,21 +541,27 @@
             eol[index]=polyline[index].Distance();
             map.setCenter(polyline[index].getPath().getAt(0));
 
-            poly2[index] = new google.maps.Polyline({path: [polyline[index].getPath().getAt(0)], strokeColor:"#FFFF00", strokeWeight:3});
+            poly2[index] = new google.maps.Polyline({path: [polyline[index].getPath().getAt(0)], strokeColor:"#FF0000", strokeOpacity: 0.00001, strokeWeight:0});
 
             timerHandle[index] = setTimeout("animate("+index+",50)",2000);  // Allow time for the initial map display
         }
 
         //----------------------------------------------------------------------------
 
+        function playerIsDead() {
+            $.ajax({
+                type: "GET",
+                url: "{{ app.urlRoot }}api/delete/player"
+            });
+        }
 
 
     </script>
 </head>
-<body onload="initialize()">
+<body onload="initialize();">
 
 <div id="tools">
-    <button onclick="setRoutes();" style="width:100%; background-color: red; color: white; font-weight: bolder">Start</button>
+    <!--<button onclick="setRoutes();" style="width:100%; background-color: red; color: white; font-weight: bolder">Start</button>-->
 </div>
 
 <div id="map_canvas" style="width:100%;height:100%;"></div>

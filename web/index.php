@@ -50,6 +50,34 @@ $app['routes'] = $app->extend('routes', function(RouteCollection $routes, Applic
 });
 
 /*
+ * Registering entity Manager for yaml mapping
+ */
+$app['DbConfigIsDevMode'] = false;
+$app['DbConfigHost'] = '';
+$app['DbConfigUser'] = '';
+$app['DbConfigPwd'] = '';
+$app['DbConfigDatabase'] = '';
+$app['eM'] = function ($app) {
+    $config = \Doctrine\ORM\Tools\Setup::createYAMLMetadataConfiguration(array(__DIR__ . "/../app/config/mapping"), $app['DbConfigIsDevMode']);
+    $path = 'escapeZombieHorde\\Model';
+    $params = array(
+        'driver' => 'pdo_mysql',
+        'host'   => $app['DbConfigHost'],
+        'user'   => $app['DbConfigUser'],
+        'password' => $app['DbConfigPwd'],
+        'dbname' => $app['DbConfigDatabase'],
+        'collation' => 'utf-8',
+        'charset' => 'utf8',
+        'entities' => array(array(
+            'type' => 'yaml',
+            'path' => '../config/mapping',
+            'namespace' => 'escapeZombieHorde\Model'
+        )));
+    $entityManager = \Doctrine\ORM\EntityManager::create($params, $config);
+    return $entityManager;
+};
+
+/*
  * Registering simple logController
  */
 $app['log'] = new \escapeZombieHorde\Controller\Tools\logController(__DIR__ . '/../app/logs');

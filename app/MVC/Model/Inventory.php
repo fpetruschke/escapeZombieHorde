@@ -17,11 +17,6 @@ class Inventory
     protected $id;
 
     /**
-     * @var     int     Id of the belonging player
-     */
-    protected $playerId;
-
-    /**
      * @var     int     Number of slots inside the inventory
      */
     protected $slots;
@@ -55,22 +50,6 @@ class Inventory
     public function setId($id)
     {
         $this->id = $id;
-    }
-
-    /**
-     * @return int
-     */
-    public function getPlayerId()
-    {
-        return $this->playerId;
-    }
-
-    /**
-     * @param int $playerId
-     */
-    public function setPlayerId($playerId)
-    {
-        $this->playerId = $playerId;
     }
 
     /**

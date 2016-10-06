@@ -1,12 +1,23 @@
-# dev environment
+# productive environment
 serverRoot : /web/
 urlRoot : /
 
+# silexs' debug mode
 debug: false
 
+# twigs' debug mode
 twig.options:
   debug: false
 
+# routing config
 routesConfigFile: routes.prod.yml
 
+# app file
 androidApp: /web/android/escapeZombieHorde.apk
+
+# mysql database config
+DbConfigIsDevMode : false
+DbConfigHost : 127.0.0.1
+DbConfigUser : zombie
+DbConfigPwd :
+DbConfigDatabase : zombie_game

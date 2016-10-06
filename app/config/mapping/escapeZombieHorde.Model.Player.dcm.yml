@@ -1,0 +1,27 @@
+escapeZombieHorde\Model\Player:
+  type: entity
+  table: players
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    name:
+      type: string
+    hp:
+      type: integer
+    startLat:
+      type: float
+    startLong:
+      type: float
+    currentLat:
+      type: float
+    currentLong:
+      type: float
+  manyToOne:
+    inventory:
+      targetEntity: escapeZombieHorde\Model\Inventory
+      joinColumn:
+        name: inventory
+        referencedColumnName: id
