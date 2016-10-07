@@ -1,6 +1,13 @@
 # escapeZombieHorde
 
-The web application is based on PHP framework Silex 1.3 ( [http://silex.sensiolabs.org/documentation](http://silex.sensiolabs.org/documentation) )
+**An android app that interacts with a webservice tracking your footsteps and spawning zombies near you.**
+
+**Between the 01.10.2016 and the 31.10.2016 you can visit `http://zombie.menkar.uberspace.de`**
+
+This application contains a webservice (running on an apache2 webserver - connected to a mysql database) and a client (android app).  
+The client calls the apis' routes with predefined parameters.   
+
+The web application is based on PHP framework Silex 1.3 ( [http://silex.sensiolabs.org/documentation](http://silex.sensiolabs.org/documentation) ).
 
 
 ------
@@ -11,8 +18,7 @@ The web application is based on PHP framework Silex 1.3 ( [http://silex.sensiola
 * [Dependencies](#dependencies)
 * [Installation](#installation)
 * [Testing](#testing)
-* [Logging](#logging)
-* [Debugging help](#debugging-help)
+* [API](#api)
 
 ------
 
@@ -42,15 +48,17 @@ The project uses jQuery(v1.12.0) and Bootstrap(v3.3.6).
 
 ## Installation
 
+**`Please read the installation instructions - else you might not be able to locally run the project...`**
+
 ### Git Clone
 First of all you need to clone or download this repository.  
 Make sure you have the permissions to read, write and execute.  
-**NOTE: Please do not change the project's root folder name. It must be "escapeZombieHorde"**
+**NOTE: Please do not change the project's root folder name. It must be "escapeZombieHorde"**  
 
 ### Composer update
 Now you need to run a composer install:
 
-`composer install`
+`composer install` and `composer update`
 
 #### .htaccess
 We want to address this little project with typing **`localhost/escapeZombieHorde/`**.  
@@ -63,7 +71,7 @@ Put following content into it:
 
 <IfModule mod_rewrite.c>
     Options -MultiViews
-    Options +FollowSymLinks
+    Options +SymLinksIfOwnerMatch
     RewriteEngine On
     RewriteCond %{DOCUMENT_ROOT}/web/$1 -f
     RewriteRule ^((.+)/?)*$ /web/$1 [L]
@@ -81,6 +89,31 @@ Check if apaches' rewrite module is enabled:
 
 (If not (nothing shows up) run `sudo a2enmod rewrite` and restart your apache.)
 
+
+### environment variable
+
+Since the application searches for your environment and differs between "productive" and "development",  
+you have to set a "dev" environment variable in your apache config.  
+How to do this depends on your setup.  
+
+In most cases, this will do it:  
+
+`sudo nano /etc/apache/sites-available/000-default.conf`
+
+add following line to the config file:
+
+```
+
+SetEnv APP_ENV dev
+
+
+```
+
+Save, close and run:
+
+`sudo service apache reload && sudo service apache restart`
+
+
 ### web/index.php  
 
 **Here you have to check the roots: **
@@ -97,19 +130,16 @@ $app['urlRoot']     = /*Root for your callable urls (ajax-requests): */;
 
 ```
 
-### Log files
-If you want the application to read and write log files under `app/log/` check, if the necessary log files are existent:
-**(For automatically creating the log-files you can execute following script: `php /path/to/project/app/cli/createEmptyLogs.php -h`)**
+### DATABASE
 
-* Test.log
-
-(Deleted other logs - see further below for more information about the logging)  
-
-------
+You can use the provided script under "app/config/database/" for creating the database.  
+Please adjust the "app/config/environment/" files to your configurations.  
 
 # Testing
 
 ## PHPUnit
+
+**`NOTE: this is still a WIP - right now there is only one "placeholder"-test...`**
 
 PHPUnit-Tests are unser `tests/MVC/`.
 
@@ -121,51 +151,11 @@ Execute tests: **`phpunit --bootstrap vendor/autoload.php tests/MVC/`**
 
 Coverage-directory: `tests/Coverage`
 
-
 ------
 
-# Logging
+#  API
 
-The software can write log-files. 
-
-You can add as many log files and log file types as you want.  
-
-You'd simply write to them using something like that:  
-
-```php  
-
-// whereverYouNeedIt.php
-$app['log']->write('NAMEOFYOURLOGFILE', '[YOUR LOG DATA]');
-
-```
-
-**TIME** 
-* A timestamp is automatically added to every entry your application creates - format: "\[Dayname dd.mm.YYYY H:m:s\]"
-* The timezone is set to Europe/Berlin. Customize it in the app/MVC/Controller/Tools/logController.php.
- 
-**FILESIZE**  
-By defaul those log files can grow up to max 5MB.  
-If the file is growing bigger than that, it will automatically be cleared except of the last 100 lines.  
-
-Those default values are configurable inside the `app/MVC/Controller/Tools/logController.php`.
-
-------
+For documentation please go to `localhost/escapeZombieHorde/documentation`  
 
 
 ------
-
-# Debugging help
-
-For debugging you can use Silex' Debugging-Mode.  
-If enabled there will also be a little debugging frame showing current routes and stuff.
-
-```php
-
-// web/index.php
-
-`$app['debug'] = true;`
-
-```
-
-------
-

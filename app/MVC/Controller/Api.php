@@ -409,6 +409,15 @@ class Api {
         }
     }
 
+    /**
+     * updateZombiePosition
+     *
+     * Method is called to update a zombies position.
+     *
+     * @param Application $app  Silex Application
+     * @param Request $request  Contains ID, LATITUDE and LONGITUDE of the zombie
+     * @return Response
+     */
     public function updateZombiePosition(Application $app, Request $request) {
 
         if(!empty($request->query->get("id")) && null != $request->query->get("id")) {
