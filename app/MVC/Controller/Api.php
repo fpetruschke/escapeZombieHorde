@@ -87,8 +87,8 @@ class Api {
                 $lat = $this->generatePositionCloseToPlayer($latitude);
                 $long = $this->generatePositionCloseToPlayer($longitude);
 
-                $zombie->setCurrentLat($lat);
-                $zombie->setCurrentLong($long);
+                $zombie->setCurrentLat(str_pad($lat, 9, 0));
+                $zombie->setCurrentLong(str_pad($long, 9, 0));
 
                 $em->persist($zombie);
                 $em->flush();
@@ -407,49 +407,5 @@ class Api {
             }
             return new Response("Updated players' position", 200);
         }
-    }
-
-    /**
-     * updateZombiePosition
-     *
-     * Method is called to update a zombies position.
-     *
-     * @param Application $app  Silex Application
-     * @param Request $request  Contains ID, LATITUDE and LONGITUDE of the zombie
-     * @return Response
-     */
-    public function updateZombiePosition(Application $app, Request $request) {
-
-        if(!empty($request->query->get("id")) && null != $request->query->get("id")) {
-            $zId = $request->query->get("id");
-        } else {
-            return new Response("Zombies' Id is missing.", 500);
-        }
-        if(!empty($request->query->get("lat")) && null != $request->query->get("lat")) {
-            $zLat = $request->query->get("lat");
-        } else {
-            return new Response("Zombies' Latitude is missing.", 500);
-        }
-        if(!empty($request->query->get("long")) && null != $request->query->get("long")) {
-            $zLong = $request->query->get("long");
-        } else {
-            return new Response("Zombies' Longitude is missing.", 500);
-        }
-
-        // get entity Manager
-        $em = $app['eM'];
-        // get player
-        $zombie = $em->getRepository('escapeZombieHorde\Model\Zombie')->findOneBy(array("id" => $zId));
-        if (empty($zombie)) {
-            // failure: no player found
-            return new Response("No zombie found with given Id.", 500);
-        } else {
-            $zombie->setCurrentLat($zLat);
-            $zombie->setCurrentLong($zLong);
-            $em->persist($zombie);
-            $em->flush();
-        }
-        return new Response("Updated zombies' position", 200);
-
     }
 }

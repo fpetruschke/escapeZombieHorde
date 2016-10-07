@@ -575,39 +575,14 @@
                     playersLat = playersPosition.lat().toFixed(4);
                     playersLong = playersPosition.lng().toFixed(4);
 
-                    {% for key,zombie in zombies %}
-                        zlat = "{{ zombie.currentLat }}";
-                        zlong = "{{ zombie.currentLong }}";
-                        zLoc = zlat + ',' + zlong;
-                        pLoc = '{{ player.currentLat }}, {{ player.currentLong }}';
-                        startLoc["{{ key }}"] = zLoc.toString();
-                        endLoc["{{ key }}"] = pLoc.toString();
-                        Colors["{{ key }}"] = "#FFFFFF";
-                    {% endfor %}
-
                     if(playersLat == zombiesLat && playersLong == zombiesLong) {
                         playerIsDead();
-                    } else {
-                        setRoutes();
                     }
                 });
             }
         }
 
-        function updateZombiePositions() {
-            {% for key,zombie in zombies %}
-                zid = "{{ zombie.id }}";
-                zlat = "{{ zombie.currentLat }}";
-                zlong = "{{ zombie.currentLong }}";
-                $.ajax({
-                    type: "POST",
-                    url: "{{ app.urlRoot }}api/update/zombie/position?id="+zid+"&lat="+zlat+"&long="+zlong
-                });
-            {% endfor %}
-        }
-
         setInterval(function(){
-            updateZombiePositions();
             updatePlayerPosition();
             checkForCollision();
         }, 500);
