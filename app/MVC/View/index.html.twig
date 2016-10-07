@@ -90,7 +90,9 @@
          * and slightly adjusted to this project.
          * It renders fog into the given canvas
          */
-        fogGeneratorForCanvas("fogCanvas");
+        if(!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+            fogGeneratorForCanvas("fogCanvas");
+        }
 
     </script>
 {% endblock content %}
