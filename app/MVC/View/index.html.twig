@@ -28,9 +28,10 @@
     {# content container with info and buttons #}
     <div class="container">
         <h1>Escape Zombie Horde</h1>
+        <p><i>Please note: This website will only be available from 01.10.2016 until 31.10.2016</i></p>
         <p>An android app that interacts with a webservice<br> tracking your footsteps and spawning zombies near you.</p>
         <div id="notification"></div>
-        <a class="btn" href="{{ app.androidApp }}" onclick="checkIfAndroidAppExists();">
+        <a class="btn" href="{{ app.serverRoot }}{{ app.androidApp }}" onclick="checkIfAndroidAppExists();">
             <span class="glyphicon glyphicon-download pull-left"></span> Android-Client
         </a>
         <a href="{{ app.urlRoot }}documentation" class="btn" >API-Documentation</a>

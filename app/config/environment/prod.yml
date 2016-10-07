@@ -13,7 +13,7 @@ twig.options:
 routesConfigFile: routes.prod.yml
 
 # app file
-androidApp: /web/android/escapeZombieHorde.apk
+androidApp: android/ZombieHorde.apk
 
 # mysql database config
 DbConfigIsDevMode : true # WATCH OUT: Setting this to false will effect a bug!

@@ -10,6 +10,16 @@ The client calls the apis' routes with predefined parameters.
 The web application is based on PHP framework Silex 1.3 ( [http://silex.sensiolabs.org/documentation](http://silex.sensiolabs.org/documentation) ).
 
 
+###  Example usage in the browser:
+
+1. Go to `http://zombie.menkar.uberspace.de/documentation` and click on the "Demo"-Button under "create new player"  
+2. Click on the "Demo"-Button under "Get Player". This will show a json string containing the active player  
+3. Click on the "Demo"-Button under "Get all Players". This will show json strings containing all active players  
+4. Click on the "Demo"-Button under "start game". A new game starts with an example location.
+5. Click on the "Demo"-Button under "Delete all players and zombies". All players, inventories and players will be deleted.  
+6. Confirm with clicking on the "Demo"-Button under "Get all Players". This will show the message "No active players".  
+
+
 ------
 
 # Content

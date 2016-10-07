@@ -13,7 +13,7 @@ twig.options:
 routesConfigFile: routes.dev.yml
 
 # app file
-androidApp: /escapeZombieHorde/web/android/escapeZombieHorde.apk
+androidApp: android/ZombieHorde.apk
 
 # mysql database config
 DbConfigIsDevMode : true
