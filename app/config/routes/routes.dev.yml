@@ -47,3 +47,7 @@ startGame:
 updatePlayerPosition:
   path: /escapeZombieHorde/api/update/player/position
   defaults: { _controller: escapeZombieHorde\Controller\Api::updatePlayerPosition }
+
+updateZombiePosition:
+  path: /escapeZombieHorde/api/update/zombie/position
+  defaults: { _controller: escapeZombieHorde\Controller\Api::updateZombiePosition }

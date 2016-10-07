@@ -26,13 +26,14 @@ The web application is based on PHP framework Silex 1.3 ( [http://silex.sensiola
 ## Dependencies
 
 ```
-    "silex/silex": "~1.3",  
-    "twig/twig": ">=1.8,<2.0-dev",  
-    "symfony/yaml":"v2.2.0",  
-    "symfony/config":"v2.2.0",  
-    "doctrine/orm": "^2.5",  
-    "monolog/monolog": "^1.17"   
-    "phpunit/phpunit": "4.8.*"  
+    "silex/silex": "~1.3",
+    "twig/twig": ">=1.8,<2.0-dev",
+    "symfony/yaml":"v2.2.0",
+    "symfony/config":"v2.2.0",
+    "doctrine/orm": "^2.5",
+    "monolog/monolog": "^1.17",
+    "igorw/config-service-provider": "^1.2",
+    "symfony/serializer": "^3.1"
 ``` 
 
 The project uses jQuery(v1.12.0) and Bootstrap(v3.3.6).
@@ -44,6 +45,7 @@ The project uses jQuery(v1.12.0) and Bootstrap(v3.3.6).
 ### Git Clone
 First of all you need to clone or download this repository.  
 Make sure you have the permissions to read, write and execute.  
+**NOTE: Please do not change the project's root folder name. It must be "escapeZombieHorde"**
 
 ### Composer update
 Now you need to run a composer install:
@@ -51,7 +53,7 @@ Now you need to run a composer install:
 `composer install`
 
 #### .htaccess
-We want to address this little project with typing **`localhost/emptySilex-Project/`**.  
+We want to address this little project with typing **`localhost/escapeZombieHorde/`**.  
 Since the index.php is located under the web-directory we don't want to have to expand the url with /web.  
 Therefore we need to configure an `.htaccess`-file inside the root of the project.  
 Put following content into it:    

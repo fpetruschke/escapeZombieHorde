@@ -408,4 +408,39 @@ class Api {
             return new Response("Updated players' position", 200);
         }
     }
+
+    public function updateZombiePosition(Application $app, Request $request) {
+
+        if(!empty($request->query->get("id")) && null != $request->query->get("id")) {
+            $zId = $request->query->get("id");
+        } else {
+            return new Response("Zombies' Id is missing.", 500);
+        }
+        if(!empty($request->query->get("lat")) && null != $request->query->get("lat")) {
+            $zLat = $request->query->get("lat");
+        } else {
+            return new Response("Zombies' Latitude is missing.", 500);
+        }
+        if(!empty($request->query->get("long")) && null != $request->query->get("long")) {
+            $zLong = $request->query->get("long");
+        } else {
+            return new Response("Zombies' Longitude is missing.", 500);
+        }
+
+        // get entity Manager
+        $em = $app['eM'];
+        // get player
+        $zombie = $em->getRepository('escapeZombieHorde\Model\Zombie')->findOneBy(array("id" => $zId));
+        if (empty($zombie)) {
+            // failure: no player found
+            return new Response("No zombie found with given Id.", 500);
+        } else {
+            $zombie->setCurrentLat($zLat);
+            $zombie->setCurrentLong($zLong);
+            $em->persist($zombie);
+            $em->flush();
+        }
+        return new Response("Updated zombies' position", 200);
+
+    }
 }
